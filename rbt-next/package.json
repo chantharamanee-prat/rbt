@@ -1,0 +1,45 @@
+{
+  "name": "rbt-next",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "source": "index.js",
+  "module": "dist/module.js",
+  "scripts": {
+    "build": "parcel build"
+  },
+  "tags": [
+    "react"
+  ],
+  "keywords": [
+    "react",
+    "bootstrap",
+    "table",
+    "grid"
+  ],
+  "files": [
+    "dist/"
+  ],
+  "author": "mrgolfprat",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "@parcel/bundler-library": "^2.13.2",
+    "@types/events": "^3.0.3",
+    "@types/node": "^22.10.1",
+    "parcel": "latest"
+  },
+  "dependencies": {
+    "classnames": "^2.5.1",
+    "events": "^3.3.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-transition-group": "^4.4.5",
+    "underscore": "^1.13.7"
+  },
+  "peerDependencies": {
+    "classnames": "^2.5.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
