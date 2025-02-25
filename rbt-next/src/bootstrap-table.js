@@ -1,18 +1,18 @@
 /* eslint camelcase: 0 */
 /* eslint arrow-body-style: 0 */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import cs from 'classnames';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import cs from "classnames";
 
-import Header from './header';
-import Filters from './filters';
-import Caption from './caption';
-import Body from './body';
-import Footer from './footer';
-import PropsBaseResolver from './props-resolver';
-import Const from './const';
-import _ from './utils';
+import Header from "./header";
+import Filters from "./filters";
+import Caption from "./caption";
+import Body from "./body";
+import Footer from "./footer";
+import PropsBaseResolver from "./props-resolver";
+import Const from "./const";
+import _ from "./utils";
 
 class BootstrapTable extends PropsBaseResolver(Component) {
   constructor(props) {
@@ -31,17 +31,13 @@ class BootstrapTable extends PropsBaseResolver(Component) {
   // Exposed APIs
   getData = () => {
     return this.visibleRows();
-  }
+  };
 
   render() {
     const { loading, overlay } = this.props;
     if (overlay) {
       const LoadingOverlay = overlay(loading);
-      return (
-        <LoadingOverlay>
-          { this.renderTable() }
-        </LoadingOverlay>
-      );
+      return <LoadingOverlay>{this.renderTable()}</LoadingOverlay>;
     }
     return this.renderTable();
   }
@@ -67,81 +63,86 @@ class BootstrapTable extends PropsBaseResolver(Component) {
       selectRow,
       expandRow,
       cellEdit,
-      filterPosition
+      filterPosition,
     } = this.props;
 
-    const tableWrapperClass = cs('react-bootstrap-table', wrapperClasses);
+    const tableWrapperClass = cs("react-bootstrap-table", wrapperClasses);
 
-    const tableClass = cs('table', {
-      'table-striped': striped,
-      'table-hover': hover,
-      'table-bordered': bordered,
-      [bootstrap4 ? 'table-sm' : 'table-condensed']: condensed
-    }, classes);
+    const tableClass = cs(
+      "table",
+      {
+        "table-striped": striped,
+        "table-hover": hover,
+        "table-bordered": bordered,
+        [bootstrap4 ? "table-sm" : "table-condensed"]: condensed,
+      },
+      classes
+    );
 
-    const hasFilters = columns.some(col => col.filter || col.filterRenderer);
+    const hasFilters = columns.some((col) => col.filter || col.filterRenderer);
 
-    const hasFooter = _.filter(columns, col => _.has(col, 'footer')).length > 0;
+    const hasFooter =
+      _.filter(columns, (col) => _.has(col, "footer")).length > 0;
 
-    const tableCaption = (
-      caption && <Caption bootstrap4={ bootstrap4 }>{ caption }</Caption>
+    const tableCaption = caption && (
+      <Caption bootstrap4={bootstrap4}>{caption}</Caption>
     );
 
     return (
-      <div className={ tableWrapperClass }>
-        <table id={ id } className={ tableClass }>
-          { tableCaption }
+      <div className={tableWrapperClass}>
+        <table id={id} className={tableClass}>
+          {tableCaption}
           <Header
-            columns={ columns }
-            className={ this.props.headerClasses }
-            wrapperClasses={ this.props.headerWrapperClasses }
-            sortField={ this.props.sortField }
-            sortOrder={ this.props.sortOrder }
-            onSort={ this.props.onSort }
-            globalSortCaret={ this.props.sort && this.props.sort.sortCaret }
-            onFilter={ this.props.onFilter }
-            currFilters={ this.props.currFilters }
-            onExternalFilter={ this.props.onExternalFilter }
-            selectRow={ selectRow }
-            expandRow={ expandRow }
-            filterPosition={ filterPosition }
+            columns={columns}
+            className={this.props.headerClasses}
+            wrapperClasses={this.props.headerWrapperClasses}
+            sortField={this.props.sortField}
+            sortOrder={this.props.sortOrder}
+            onSort={this.props.onSort}
+            globalSortCaret={this.props.sort && this.props.sort.sortCaret}
+            onFilter={this.props.onFilter}
+            currFilters={this.props.currFilters}
+            onExternalFilter={this.props.onExternalFilter}
+            selectRow={selectRow}
+            expandRow={expandRow}
+            filterPosition={filterPosition}
           />
           {hasFilters && filterPosition !== Const.FILTERS_POSITION_INLINE && (
             <Filters
-              columns={ columns }
-              className={ this.props.filtersClasses }
-              onSort={ this.props.onSort }
-              onFilter={ this.props.onFilter }
-              currFilters={ this.props.currFilters }
-              filterPosition={ this.props.filterPosition }
-              onExternalFilter={ this.props.onExternalFilter }
-              selectRow={ selectRow }
-              expandRow={ expandRow }
+              columns={columns}
+              className={this.props.filtersClasses}
+              onSort={this.props.onSort}
+              onFilter={this.props.onFilter}
+              currFilters={this.props.currFilters}
+              filterPosition={this.props.filterPosition}
+              onExternalFilter={this.props.onExternalFilter}
+              selectRow={selectRow}
+              expandRow={expandRow}
             />
           )}
           <Body
-            className={ this.props.bodyClasses }
-            data={ this.getData() }
-            keyField={ keyField }
-            tabIndexCell={ tabIndexCell }
-            columns={ columns }
-            isEmpty={ this.isEmpty() }
-            visibleColumnSize={ this.visibleColumnSize() }
-            noDataIndication={ noDataIndication }
-            cellEdit={ cellEdit }
-            selectRow={ selectRow }
-            expandRow={ expandRow }
-            rowStyle={ rowStyle }
-            rowClasses={ rowClasses }
-            rowEvents={ rowEvents }
+            className={this.props.bodyClasses}
+            data={this.getData()}
+            keyField={keyField}
+            tabIndexCell={tabIndexCell}
+            columns={columns}
+            isEmpty={this.isEmpty()}
+            visibleColumnSize={this.visibleColumnSize()}
+            noDataIndication={noDataIndication}
+            cellEdit={cellEdit}
+            selectRow={selectRow}
+            expandRow={expandRow}
+            rowStyle={rowStyle}
+            rowClasses={rowClasses}
+            rowEvents={rowEvents}
           />
           {hasFooter && (
             <Footer
-              data={ this.getData() }
-              columns={ columns }
-              selectRow={ selectRow }
-              expandRow={ expandRow }
-              className={ this.props.footerClasses }
+              data={this.getData()}
+              columns={columns}
+              selectRow={selectRow}
+              expandRow={expandRow}
+              className={this.props.footerClasses}
             />
           )}
         </table>
@@ -155,9 +156,12 @@ BootstrapTable.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   bootstrap4: PropTypes.bool,
-  remote: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
-    pagination: PropTypes.bool
-  })]),
+  remote: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.shape({
+      pagination: PropTypes.bool,
+    }),
+  ]),
   noDataIndication: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   striped: PropTypes.bool,
   bordered: PropTypes.bool,
@@ -170,10 +174,7 @@ BootstrapTable.propTypes = {
   wrapperClasses: PropTypes.string,
   headerWrapperClasses: PropTypes.string,
   condensed: PropTypes.bool,
-  caption: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.string
-  ]),
+  caption: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   pagination: PropTypes.object,
   filter: PropTypes.object,
   cellEdit: PropTypes.object,
@@ -181,7 +182,7 @@ BootstrapTable.propTypes = {
     mode: PropTypes.oneOf([
       Const.ROW_SELECT_SINGLE,
       Const.ROW_SELECT_MULTIPLE,
-      Const.ROW_SELECT_DISABLED
+      Const.ROW_SELECT_DISABLED,
     ]).isRequired,
     clickToSelect: PropTypes.bool,
     clickToExpand: PropTypes.bool,
@@ -193,7 +194,10 @@ BootstrapTable.propTypes = {
     classes: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     nonSelectable: PropTypes.array,
     nonSelectableStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    nonSelectableClasses: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    nonSelectableClasses: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+    ]),
     bgColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     hideSelectColumn: PropTypes.bool,
     selectionRenderer: PropTypes.func,
@@ -202,8 +206,8 @@ BootstrapTable.propTypes = {
     selectColumnStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     selectColumnPosition: PropTypes.oneOf([
       Const.INDICATOR_POSITION_LEFT,
-      Const.INDICATOR_POSITION_RIGHT
-    ])
+      Const.INDICATOR_POSITION_RIGHT,
+    ]),
   }),
   expandRow: PropTypes.shape({
     renderer: PropTypes.func,
@@ -218,10 +222,10 @@ BootstrapTable.propTypes = {
     expandHeaderColumnRenderer: PropTypes.func,
     expandColumnPosition: PropTypes.oneOf([
       Const.INDICATOR_POSITION_LEFT,
-      Const.INDICATOR_POSITION_RIGHT
+      Const.INDICATOR_POSITION_RIGHT,
     ]),
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    parentClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+    parentClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   }),
   rowStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   rowEvents: PropTypes.object,
@@ -230,18 +234,20 @@ BootstrapTable.propTypes = {
   filterPosition: PropTypes.oneOf([
     Const.FILTERS_POSITION_TOP,
     Const.FILTERS_POSITION_INLINE,
-    Const.FILTERS_POSITION_BOTTOM
+    Const.FILTERS_POSITION_BOTTOM,
   ]),
   footerClasses: PropTypes.string,
-  defaultSorted: PropTypes.arrayOf(PropTypes.shape({
-    dataField: PropTypes.string.isRequired,
-    order: PropTypes.oneOf([Const.SORT_DESC, Const.SORT_ASC]).isRequired
-  })),
+  defaultSorted: PropTypes.arrayOf(
+    PropTypes.shape({
+      dataField: PropTypes.string.isRequired,
+      order: PropTypes.oneOf([Const.SORT_DESC, Const.SORT_ASC]).isRequired,
+    })
+  ),
   sort: PropTypes.shape({
     dataField: PropTypes.string,
     order: PropTypes.oneOf([Const.SORT_DESC, Const.SORT_ASC]),
     sortFunc: PropTypes.func,
-    sortCaret: PropTypes.func
+    sortCaret: PropTypes.func,
   }),
   defaultSortDirection: PropTypes.oneOf([Const.SORT_DESC, Const.SORT_ASC]),
   overlay: PropTypes.func,
@@ -253,9 +259,9 @@ BootstrapTable.propTypes = {
   // Inject from toolkit
   search: PropTypes.shape({
     searchText: PropTypes.string,
-    searchContext: PropTypes.func
+    searchContext: PropTypes.func,
   }),
-  setDependencyModules: PropTypes.func
+  setDependencyModules: PropTypes.func,
 };
 
 BootstrapTable.defaultProps = {
@@ -269,18 +275,18 @@ BootstrapTable.defaultProps = {
   selectRow: {
     mode: Const.ROW_SELECT_DISABLED,
     selected: [],
-    hideSelectColumn: true
+    hideSelectColumn: true,
   },
   expandRow: {
     renderer: undefined,
     expanded: [],
-    nonExpandable: []
+    nonExpandable: [],
   },
   cellEdit: {
     mode: null,
-    nonEditableRows: []
+    nonEditableRows: [],
   },
-  filterPosition: Const.FILTERS_POSITION_INLINE
+  filterPosition: Const.FILTERS_POSITION_INLINE,
 };
 
 export default BootstrapTable;
